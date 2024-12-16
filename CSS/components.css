@@ -1118,18 +1118,41 @@ tr:hover {
   max-width: 200px; /* 적절한 너비 설정 */
 }
 
-/* 헤더 로고 스타일 */
-.header-logo {
-    height: 100px;  /* 로고 높이 조정 */
-    width: auto;   /* 비율 유지 */
-    display: block;
-    margin: 20px auto;  /* 상하 여백과 중앙 정렬 */
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리 */
+/* 로고 링크 스타일 */
+.logo-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    width: fit-content;
+    padding: 0;
+}
+
+/* 헤더 로고 스타일 */
+.header-logo {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* 호버 효과 */
+.logo-link:hover {
+    transform: scale(1.02);
+}
+
+/* 반응형 디자인 */
 @media (max-width: 768px) {
     .header-logo {
-        height: 50px;  /* 모바일에서는 좀 더 작게 */
-        margin: 15px auto;
+        height: 50px;
     }
 }

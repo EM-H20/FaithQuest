@@ -11,7 +11,9 @@
 ├─HTML
 │      attendance.html
 │      index.html
+│      logoMeaning.html
 │      registration.html
+│      statistics.html
 │
 ├─JAVASCRIPT
 │        attendance.js
@@ -20,5 +22,6 @@
 │        statistics.js
 │        utils.js
 └─images
+        onlyLogo.png
         registration.png
 
