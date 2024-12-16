@@ -820,7 +820,7 @@ tr:hover {
   padding: 0 var(--spacing-md);
 }
 
-/* 컨트롤 영역 여백 조정 */
+/* 컨트롤 영역 여백 ���정 */
 .attendance-controls {
   margin: var(--spacing-xl) 0;
   padding: 0 var(--spacing-lg);
@@ -1217,7 +1217,7 @@ header {
   gap: var(--spacing-lg);
 }
 
-/* 출석 현황 카드 스���일 */
+/* 출석 현황 카드 스타일 */
 .summary-card {
   background-color: white;
   border-radius: var(--radius-md);
@@ -1315,6 +1315,39 @@ header {
     color: var(--color-accent);
     font-size: 1.2rem;
     margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+}
+
+.meaning-item h3::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: var(--spacing-sm);
+}
+
+/* 각 의미별 색상 표시 */
+.meaning-item.circle h3::before {
+    background: conic-gradient(#2B7DE1 90deg, #E74C3C 90deg 180deg, #F39C12 180deg 270deg, #27AE60 270deg);
+    border: 1px solid var(--color-secondary);
+}
+
+.meaning-item.blue h3::before {
+    background-color: #2B7DE1;  /* 파랑색 */
+}
+
+.meaning-item.red h3::before {
+    background-color: #E74C3C;  /* 빨강색 */
+}
+
+.meaning-item.orange h3::before {
+    background-color: #F39C12;  /* 주황색 */
+}
+
+.meaning-item.green h3::before {
+    background-color: #27AE60;  /* 녹색 */
 }
 
 .meaning-item p {
