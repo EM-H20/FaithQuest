@@ -1,11 +1,23 @@
+<!--
+* FaithQuest 출석 관리 페이지
+* 
+* 주요 기능:
+* 1. 날짜별 출석 체크
+* 2. 교인 검색 (이름/연락처)
+* 3. 직분별 필터링
+* 4. 출석 현황 저장
+-->
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FaithQuest - 출석 관리</title>
+    <!-- 스타일시트 연결 -->
     <link rel="stylesheet" href="../CSS/style.css" />
     <link rel="stylesheet" href="../CSS/components.css" />
+    <!-- Noto Sans KR 폰트 -->
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
       rel="stylesheet"
@@ -13,13 +25,16 @@
   </head>
   <body>
     <div class="container">
+      <!-- 헤더 영역 -->
       <header>
         <a href="index.html" class="back-button">← 돌아가기</a>
         <h1>출석 관리</h1>
       </header>
 
       <main>
+        <!-- 출석 관리 카드 -->
         <div class="attendance-card">
+          <!-- 카드 헤더 -->
           <div class="card-header">
             <div class="form-icon">
               <img src="../images/onlyLogo.png" alt="출석 아이콘" />
@@ -27,7 +42,9 @@
             <h2>출석 체크</h2>
           </div>
 
+          <!-- 컨트롤 영역 (날짜 선택, 검색, 필터) -->
           <div class="attendance-controls">
+            <!-- 날짜 선택 & 검색 영역 -->
             <div class="date-picker-wrapper">
               <label for="attendanceDate">
                 <span class="date-label">날짜 선택</span>
@@ -40,6 +57,8 @@
                 <input type="date" id="attendanceDate" class="date-picker" />
               </div>
             </div>
+
+            <!-- 검색 영역 -->
             <div class="search-wrapper">
               <div class="search-input-wrapper">
                 <span class="search-icon">🔍</span>
@@ -59,6 +78,8 @@
                 </button>
               </div>
             </div>
+
+            <!-- 직분 필터 -->
             <div class="filter-row">
               <select id="roleFilter" class="role-filter">
                 <option value="">전체 직분</option>
@@ -72,6 +93,7 @@
             </div>
           </div>
 
+          <!-- 출석 명단 테이블 -->
           <div class="attendance-list">
             <table id="attendanceTable">
               <thead>
@@ -83,11 +105,12 @@
                 </tr>
               </thead>
               <tbody id="attendanceBody">
-                <!-- JavaScript로 동적 생성됨 -->
+                <!-- JavaScript로 동적 생성되는 출석 명단 -->
               </tbody>
             </table>
           </div>
 
+          <!-- 저장 버튼 -->
           <button id="saveAttendance" class="submit-button">
             <span>출석 저장</span>
             <div class="button-icon">✓</div>
@@ -95,6 +118,8 @@
         </div>
       </main>
     </div>
+
+    <!-- 스크립트 연결 -->
     <script src="../JAVASCRIPT/utils.js"></script>
     <script src="../JAVASCRIPT/attendance.js"></script>
   </body>
