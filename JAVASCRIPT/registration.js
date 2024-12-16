@@ -127,7 +127,7 @@ class Registration {
       utils.data.members.add(formData);
       this.showAlert(
         '등록 완료', 
-        '새신자 등록이 완료되었습니다.',
+        '새신�� 등록이 완료되었습니다.',
         'success'
       );
       this.form.reset();

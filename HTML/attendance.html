@@ -28,18 +28,35 @@
           </div>
 
           <div class="attendance-controls">
-            <div class="control-row">
-              <div class="date-picker-wrapper">
-                <label for="attendanceDate">날짜 선택</label>
+            <div class="date-picker-wrapper">
+              <label for="attendanceDate">
+                <span class="date-label">날짜 선택</span>
+                <span class="today-text"
+                  >오늘: <span id="todayDate"></span
+                ></span>
+              </label>
+              <div class="date-input-wrapper">
+                <span class="calendar-icon">📅</span>
                 <input type="date" id="attendanceDate" class="date-picker" />
               </div>
-              <div class="search-wrapper">
+            </div>
+            <div class="search-wrapper">
+              <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
                 <input
                   type="text"
                   id="searchInput"
                   class="search-input"
                   placeholder="이름 또는 연락처로 검색"
                 />
+                <button
+                  type="button"
+                  id="clearSearch"
+                  class="clear-search"
+                  title="검색어 지우기"
+                >
+                  ×
+                </button>
               </div>
             </div>
             <div class="filter-row">

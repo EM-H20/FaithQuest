@@ -6,8 +6,9 @@ class Attendance {
     this.attendanceTable = document.getElementById("attendanceTable");
     this.attendanceBody = document.getElementById("attendanceBody");
     this.saveButton = document.getElementById("saveAttendance");
-    this.searchInput = document.getElementById('searchInput');
-    this.roleFilter = document.getElementById('roleFilter');
+    this.searchInput = document.getElementById("searchInput");
+    this.roleFilter = document.getElementById("roleFilter");
+    this.clearSearchButton = document.getElementById("clearSearch");
 
     this.initializeDate();
     this.initializeEventListeners();
@@ -15,14 +16,41 @@ class Attendance {
     this.initializeAlert();
 
     // 이벤트 리스너 추가
-    this.searchInput.addEventListener('input', () => this.loadMembers());
-    this.roleFilter.addEventListener('change', () => this.loadMembers());
+    this.searchInput.addEventListener("input", (e) => {
+      const value = e.target.value;
+      
+      // 숫자만 입력된 경우 전화번호 포맷팅 적용
+      if (/^\d+$/.test(value)) {
+        const number = value.replace(/-/g, "");
+        if (number.length === 11) {
+          e.target.value = number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        }
+      }
+      
+      this.loadMembers();
+    });
+    this.roleFilter.addEventListener("change", () => this.loadMembers());
+    this.clearSearchButton.addEventListener("click", () => {
+      this.searchInput.value = "";
+      this.searchInput.focus();
+      this.loadMembers();
+    });
   }
 
   initializeDate() {
     // 오늘 날짜를 기본값으로 설정
-    const today = new Date().toISOString().split("T")[0];
-    this.attendanceDate.value = today;
+    const today = new Date();
+    const todayStr = today.toISOString().split("T")[0];
+    this.attendanceDate.value = todayStr;
+
+    // 오늘 날짜 표시
+    const todayDisplay = today.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    });
+    document.getElementById("todayDate").textContent = todayDisplay;
   }
 
   initializeEventListeners() {
@@ -43,28 +71,28 @@ class Attendance {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', alertHTML);
+    document.body.insertAdjacentHTML("beforeend", alertHTML);
 
     // 알림창 요소 참조
-    this.alertOverlay = document.getElementById('alertOverlay');
-    this.alertTitle = this.alertOverlay.querySelector('.alert-title');
-    this.alertMessage = this.alertOverlay.querySelector('.alert-message');
-    this.alertButton = this.alertOverlay.querySelector('.alert-button');
+    this.alertOverlay = document.getElementById("alertOverlay");
+    this.alertTitle = this.alertOverlay.querySelector(".alert-title");
+    this.alertMessage = this.alertOverlay.querySelector(".alert-message");
+    this.alertButton = this.alertOverlay.querySelector(".alert-button");
 
     // 알림창 닫기 이벤트
-    this.alertButton.addEventListener('click', () => {
+    this.alertButton.addEventListener("click", () => {
       this.hideAlert();
     });
   }
 
-  showAlert(title, message, type = 'default') {
+  showAlert(title, message, type = "default") {
     this.alertTitle.textContent = title;
     this.alertMessage.textContent = message;
     this.alertOverlay.className = `alert-overlay show alert-${type}`;
   }
 
   hideAlert() {
-    this.alertOverlay.classList.remove('show');
+    this.alertOverlay.classList.remove("show");
   }
 
   loadMembers() {
@@ -74,49 +102,57 @@ class Attendance {
 
     // 검색어로 필터링
     if (searchTerm) {
-      members = members.filter(member => 
-        member.name.toLowerCase().includes(searchTerm) ||
-        member.contact.replace(/-/g, '').includes(searchTerm.replace(/-/g, ''))
-      );
+      members = members.filter((member) => {
+        const memberName = member.name.toLowerCase();
+        const memberContact = member.contact.replace(/-/g, "");
+        const searchValue = searchTerm.replace(/-/g, "");
+
+        return (
+          memberName.includes(searchTerm) || memberContact.includes(searchValue)
+        );
+      });
     }
 
     // 직분으로 필터링
     if (roleFilter) {
-      members = members.filter(member => member.role === roleFilter);
+      members = members.filter((member) => member.role === roleFilter);
     }
 
     // 직분별 정렬
-    const sortedMembers = members.sort((a, b) => 
-      utils.roles.getPriority(a.role) - utils.roles.getPriority(b.role)
+    const sortedMembers = members.sort(
+      (a, b) =>
+        utils.roles.getPriority(a.role) - utils.roles.getPriority(b.role)
     );
 
     this.renderMembers(sortedMembers);
   }
 
   renderMembers(members) {
-    this.attendanceBody.innerHTML = '';
+    this.attendanceBody.innerHTML = "";
     let currentRole = null;
     const searchTerm = this.searchInput.value.toLowerCase();
 
-    members.forEach(member => {
+    members.forEach((member) => {
       if (currentRole !== member.role) {
         currentRole = member.role;
-        const divider = document.createElement('tr');
-        divider.className = 'role-divider';
+        const divider = document.createElement("tr");
+        divider.className = "role-divider";
         divider.innerHTML = `
-          <td colspan="4" class="role-header ${utils.roles.getClass(member.role)}">
+          <td colspan="4" class="role-header ${utils.roles.getClass(
+            member.role
+          )}">
             ${utils.roles.getName(member.role)}
           </td>
         `;
         this.attendanceBody.appendChild(divider);
       }
 
-      const row = document.createElement('tr');
-      
+      const row = document.createElement("tr");
+
       // 검색어 하이라이트 처리
       const highlightText = (text, term) => {
         if (!term) return text;
-        const regex = new RegExp(`(${term})`, 'gi');
+        const regex = new RegExp(`(${term})`, "gi");
         return text.replace(regex, '<span class="highlight">$1</span>');
       };
 
@@ -127,12 +163,12 @@ class Attendance {
             ${utils.roles.getName(member.role)}
           </span>
         </td>
-        <td>${highlightText(member.contact, searchTerm)}</td>
+        <td>${this.formatPhoneNumber(member.contact)}</td>
         <td>
           <input type="checkbox" 
                  class="attendance-checkbox" 
                  data-member-id="${member.id}"
-                 ${this.isAttended(member.id) ? 'checked' : ''}>
+                 ${this.isAttended(member.id) ? "checked" : ""}>
         </td>
       `;
 
@@ -141,7 +177,7 @@ class Attendance {
 
     // 검색 결과가 없을 경우 메시지 표시
     if (members.length === 0) {
-      const noResults = document.createElement('tr');
+      const noResults = document.createElement("tr");
       noResults.innerHTML = `
         <td colspan="4" class="no-results">
           검색 결과가 없습니다.
@@ -195,11 +231,16 @@ class Attendance {
     });
 
     // alert 대신 커스텀 알림창 사용
-    this.showAlert(
-      '저장 완료',
-      '출석이 저장되었습니다.',
-      'success'
-    );
+    this.showAlert("저장 완료", "출석이 저장되었습니다.", "success");
+  }
+
+  // 전화번호 포맷팅 함수 추가
+  formatPhoneNumber(number) {
+    const cleaned = number.replace(/[^0-9]/g, "");
+    if (cleaned.length === 11) {
+      return cleaned.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    }
+    return number;
   }
 }
 

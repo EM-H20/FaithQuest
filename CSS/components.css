@@ -168,7 +168,11 @@
 
 /* 기존 스타일에 추가 */
 .attendance-controls {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  padding: 0 var(--spacing-lg);
 }
 
 .date-picker {
@@ -775,8 +779,8 @@ tr:hover {
 
 /* 컨트롤 영역 여백 조정 */
 .attendance-controls {
-  margin-bottom: var(--spacing-xl);
-  padding: 0 var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+  padding: 0 var(--spacing-lg);
 }
 
 .control-row {
@@ -808,7 +812,7 @@ tr:hover {
 /* 연락처 열 정렬 */
 .attendance-list th:nth-child(3),
 .attendance-list td:nth-child(3) {
-  padding-left: var(--spacing-xl);  /* 연락처 왼쪽 여백 */
+  padding-left: var(--spacing-xl); /* 연락처 왼쪽 여백 */
 }
 
 /* 체크박스 열 정렬 */
@@ -832,95 +836,244 @@ tr:hover {
   letter-spacing: 0.5px;
 }
 
-/* 알림창 ���타일 */
+/* 알림창 스타일 */
 .alert-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
 }
 
 .alert-overlay.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .alert-box {
-    background-color: var(--color-surface);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    box-shadow: var(--shadow-lg);
-    max-width: 400px;
-    width: 90%;
-    transform: translateY(-20px);
-    transition: all 0.3s ease;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-lg);
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
 }
 
 .alert-overlay.show .alert-box {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .alert-content {
-    text-align: center;
-    margin-bottom: var(--spacing-lg);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
 }
 
 .alert-title {
-    color: var(--color-primary);
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
 }
 
 .alert-message {
-    color: var(--color-text);
-    font-size: 1rem;
+  color: var(--color-text);
+  font-size: 1rem;
 }
 
 .alert-button {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--color-accent);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .alert-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* 알림 타입별 스타일 */
 .alert-error .alert-title {
-    color: #E53E3E;  /* 빨간색 */
+  color: #e53e3e; /* 빨간색 */
 }
 
 .alert-success .alert-title {
-    color: #38A169;  /* 초록색 */
+  color: #38a169; /* 초록색 */
 }
 
-/* 필수 입력 항목 텍스트 스타일 */
+/* 필 입력 항목 텍스트 스타일 */
 .required-text {
-    text-align: right;
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-light);
-    font-size: 0.9rem;
+  text-align: right;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-light);
+  font-size: 0.9rem;
 }
 
 .required-text span {
-    font-style: italic;
+  font-style: italic;
+}
+
+/* 날짜 선택 스타일 업데이트 */
+.date-picker-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.date-label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.today-text {
+  margin-left: var(--spacing-md);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  color: var(--color-text-light);
+  pointer-events: none;
+}
+
+.date-picker {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm)
+    var(--spacing-xl);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-body);
+  transition: all 0.2s;
+  background-color: white;
+  cursor: pointer;
+}
+
+.date-picker:hover {
+  border-color: var(--color-accent);
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+/* 검색 영역 스타일 업데이트 */
+.search-wrapper {
+  flex: 1;
+  margin-bottom: var(--spacing-sm);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--spacing-md);
+  color: var(--color-text-light);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md)
+    var(--spacing-xl);
+  padding-left: calc(var(--spacing-xl) + var(--spacing-sm));
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-body);
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.search-input:hover {
+  border-color: var(--color-accent);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.clear-search {
+  position: absolute;
+  right: var(--spacing-md);
+  color: var(--color-text-light);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  display: none;
+  transition: all 0.2s;
+}
+
+.clear-search:hover {
+  color: var(--color-accent);
+}
+
+/* 검색어가 있을 때만 X 버튼 표시 */
+.search-input:not(:placeholder-shown) + .clear-search {
+  display: block;
+}
+
+/* 컨트롤 영역 레이아웃 수정 */
+.attendance-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  padding: 0 var(--spacing-lg);
+}
+
+/* 날짜 선택 영역 */
+.date-picker-wrapper {
+  width: 100%;
+  max-width: 300px;  /* 적절한 너비 설정 */
+}
+
+/* 검색 영역 */
+.search-wrapper {
+  width: 100%;
+  margin-top: var(--spacing-md);  /* 상단 여백 추가 */
+}
+
+.search-input-wrapper {
+  width: 100%;
+  max-width: 500px;  /* 적절한 너비 설정 */
+}
+
+/* 필터 영역 */
+.filter-row {
+  width: 100%;
+  max-width: 200px;  /* 적절한 너비 설정 */
 }
