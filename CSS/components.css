@@ -832,7 +832,7 @@ tr:hover {
   letter-spacing: 0.5px;
 }
 
-/* 알림창 스타일 */
+/* 알림창 ���타일 */
 .alert-overlay {
     position: fixed;
     top: 0;
@@ -911,4 +911,16 @@ tr:hover {
 
 .alert-success .alert-title {
     color: #38A169;  /* 초록색 */
+}
+
+/* 필수 입력 항목 텍스트 스타일 */
+.required-text {
+    text-align: right;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.required-text span {
+    font-style: italic;
 }
