@@ -33,10 +33,10 @@ class Statistics {
 
   initializeEventListeners() {
     // 시작일 변경 이벤트
-    this.startDate.addEventListener('change', () => {
+    this.startDate.addEventListener("change", () => {
       // 종료일의 최소값을 시작일로 업데이트
       this.endDate.min = this.startDate.value;
-      
+
       // 종료일이 시작일보다 이전이면 종료일을 시작일로 설정
       if (this.endDate.value < this.startDate.value) {
         this.endDate.value = this.startDate.value;
@@ -44,10 +44,10 @@ class Statistics {
     });
 
     // 종료일 변경 이벤트
-    this.endDate.addEventListener('change', () => {
+    this.endDate.addEventListener("change", () => {
       // 시작일의 최대값을 종료일로 업데이트
       this.startDate.max = this.endDate.value;
-      
+
       // 시작일이 종료일보다 이후면 시작일을 종료일로 설정
       if (this.startDate.value > this.endDate.value) {
         this.startDate.value = this.endDate.value;
@@ -63,6 +63,7 @@ class Statistics {
     });
   }
 
+  // 통계 데이터 로드
   loadStatistics() {
     const members = utils.data.members.getAll();
 
@@ -72,6 +73,7 @@ class Statistics {
     this.updateSummary(members);
   }
 
+  // 역할별 통계 업데이트
   updateRoleChart(members) {
     const roleStats = {};
     const roles = {
@@ -113,6 +115,7 @@ class Statistics {
     });
   }
 
+  // 월별 등록 통계 업데이트
   updateRegistrationChart(members) {
     const monthlyStats = {};
     const start = new Date(this.startDate.value);
@@ -149,6 +152,7 @@ class Statistics {
     });
   }
 
+  // 출석률 통계 업데이트
   updateAttendanceChart(members) {
     // 기존 차트가 있다면 제거
     if (this.attendanceChart) {
@@ -163,20 +167,20 @@ class Statistics {
     let currentDate = new Date(start);
     const endDate = new Date(end);
     while (currentDate <= endDate) {
-      dates.push(new Date(currentDate).toISOString().split('T')[0]);
+      dates.push(new Date(currentDate).toISOString().split("T")[0]);
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
     // 날짜별 출석률 계산
-    const attendanceData = dates.map(date => {
-      const attendedCount = members.filter(member => {
-        const attendance = member.attendance.find(a => a.date === date);
+    const attendanceData = dates.map((date) => {
+      const attendedCount = members.filter((member) => {
+        const attendance = member.attendance.find((a) => a.date === date);
         return attendance && attendance.attended;
       }).length;
-      
+
       return {
         date: date,
-        rate: members.length > 0 ? (attendedCount / members.length) * 100 : 0
+        rate: members.length > 0 ? (attendedCount / members.length) * 100 : 0,
       };
     });
 
@@ -184,20 +188,22 @@ class Statistics {
     this.attendanceChart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: attendanceData.map(item => 
-          new Date(item.date).toLocaleDateString('ko-KR', {
-            month: 'short',
-            day: 'numeric'
+        labels: attendanceData.map((item) =>
+          new Date(item.date).toLocaleDateString("ko-KR", {
+            month: "short",
+            day: "numeric",
           })
         ),
-        datasets: [{
-          label: "출석률 (%)",
-          data: attendanceData.map(item => item.rate.toFixed(1)),
-          borderColor: "#2ECC71",
-          backgroundColor: "rgba(46, 204, 113, 0.1)",
-          tension: 0.1,
-          fill: true
-        }]
+        datasets: [
+          {
+            label: "출석률 (%)",
+            data: attendanceData.map((item) => item.rate.toFixed(1)),
+            borderColor: "#2ECC71",
+            backgroundColor: "rgba(46, 204, 113, 0.1)",
+            tension: 0.1,
+            fill: true,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -208,29 +214,30 @@ class Statistics {
             max: 100,
             title: {
               display: true,
-              text: '출석률 (%)'
-            }
+              text: "출석률 (%)",
+            },
           },
           x: {
             title: {
               display: true,
-              text: '날짜'
-            }
-          }
+              text: "날짜",
+            },
+          },
         },
         plugins: {
           tooltip: {
             callbacks: {
-              label: function(context) {
+              label: function (context) {
                 return `출석률: ${context.parsed.y}%`;
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
   }
 
+  // 요약 통계 업데이트
   updateSummary(members) {
     const start = this.startDate.value;
     const end = this.endDate.value;
@@ -239,28 +246,33 @@ class Statistics {
     let totalAttendance = 0;
     let totalDays = 0;
 
-    members.forEach(member => {
-      const periodAttendance = member.attendance.filter(record => 
-        record.date >= start && record.date <= end
+    members.forEach((member) => {
+      const periodAttendance = member.attendance.filter(
+        (record) => record.date >= start && record.date <= end
       );
-      
+
       totalDays += periodAttendance.length;
-      totalAttendance += periodAttendance.filter(record => record.attended).length;
+      totalAttendance += periodAttendance.filter(
+        (record) => record.attended
+      ).length;
     });
 
     // 평균 출석률 계산
-    const avgAttendance = totalDays > 0 ? (totalAttendance / totalDays) * 100 : 0;
+    const avgAttendance =
+      totalDays > 0 ? (totalAttendance / totalDays) * 100 : 0;
 
     // 이번달 신규 등록자 수 계산
     const thisMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
-    const newMembersCount = members.filter(member => 
+    const newMembersCount = members.filter((member) =>
       member.registrationDate.startsWith(thisMonth)
     ).length;
 
     // UI 업데이트
     document.getElementById("totalMembers").textContent = `${members.length}명`;
     document.getElementById("newMembers").textContent = `${newMembersCount}명`;
-    document.getElementById("avgAttendance").textContent = `${avgAttendance.toFixed(1)}%`;
+    document.getElementById(
+      "avgAttendance"
+    ).textContent = `${avgAttendance.toFixed(1)}%`;
   }
 }
 
