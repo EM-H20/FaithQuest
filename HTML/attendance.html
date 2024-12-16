@@ -14,48 +14,68 @@
   <body>
     <div class="container">
       <header>
+        <a href="index.html" class="back-button">← 돌아가기</a>
         <h1>출석 관리</h1>
       </header>
 
       <main>
-        <div class="attendance-controls">
-          <div class="search-container">
-            <input
-              type="text"
-              id="searchInput"
-              class="search-input"
-              placeholder="이름 또는 연락처로 검색"
-            />
-            <select id="roleFilter" class="role-filter">
-              <option value="">전체 직분</option>
-              <option value="pastor">목사</option>
-              <option value="minister">전도사</option>
-              <option value="elder">장로</option>
-              <option value="seniorDeaconess">권사</option>
-              <option value="deaconess">집사</option>
-              <option value="member">성도</option>
-            </select>
+        <div class="attendance-card">
+          <div class="card-header">
+            <div class="form-icon">
+              <img src="../images/onlyLogo.png" alt="출석 아이콘" />
+            </div>
+            <h2>출석 체크</h2>
           </div>
-          <input type="date" id="attendanceDate" class="date-picker" />
-        </div>
 
-        <div class="attendance-list">
-          <table id="attendanceTable">
-            <thead>
-              <tr>
-                <th>이름</th>
-                <th>직분</th>
-                <th>연락처</th>
-                <th>출석 여부</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceBody">
-              <!-- JavaScript로 동적 생성됨 -->
-            </tbody>
-          </table>
-        </div>
+          <div class="attendance-controls">
+            <div class="control-row">
+              <div class="date-picker-wrapper">
+                <label for="attendanceDate">날짜 선택</label>
+                <input type="date" id="attendanceDate" class="date-picker" />
+              </div>
+              <div class="search-wrapper">
+                <input
+                  type="text"
+                  id="searchInput"
+                  class="search-input"
+                  placeholder="이름 또는 연락처로 검색"
+                />
+              </div>
+            </div>
+            <div class="filter-row">
+              <select id="roleFilter" class="role-filter">
+                <option value="">전체 직분</option>
+                <option value="pastor">목사</option>
+                <option value="minister">전도사</option>
+                <option value="elder">장로</option>
+                <option value="seniorDeaconess">권사</option>
+                <option value="deaconess">집사</option>
+                <option value="member">성도</option>
+              </select>
+            </div>
+          </div>
 
-        <button id="saveAttendance" class="btn-primary">출석 저장</button>
+          <div class="attendance-list">
+            <table id="attendanceTable">
+              <thead>
+                <tr>
+                  <th>이름</th>
+                  <th>직분</th>
+                  <th>　　연락처</th>
+                  <th>출석 여부</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceBody">
+                <!-- JavaScript로 동적 생성됨 -->
+              </tbody>
+            </table>
+          </div>
+
+          <button id="saveAttendance" class="submit-button">
+            <span>출석 저장</span>
+            <div class="button-icon">✓</div>
+          </button>
+        </div>
       </main>
     </div>
     <script src="../JAVASCRIPT/utils.js"></script>

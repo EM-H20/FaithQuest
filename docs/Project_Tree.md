@@ -13,9 +13,12 @@
 │      index.html
 │      registration.html
 │
-└─JAVASCRIPT
-        attendance.js
-        main.js
-        registration.js
-        statistics.js
-        utils.js
+├─JAVASCRIPT
+│        attendance.js
+│        main.js
+│        registration.js
+│        statistics.js
+│        utils.js
+└─images
+        registration.png
+

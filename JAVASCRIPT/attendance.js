@@ -12,6 +12,7 @@ class Attendance {
     this.initializeDate();
     this.initializeEventListeners();
     this.loadMembers();
+    this.initializeAlert();
 
     // 이벤트 리스너 추가
     this.searchInput.addEventListener('input', () => this.loadMembers());
@@ -27,6 +28,43 @@ class Attendance {
   initializeEventListeners() {
     this.attendanceDate.addEventListener("change", () => this.loadMembers());
     this.saveButton.addEventListener("click", () => this.saveAttendance());
+  }
+
+  initializeAlert() {
+    // 알림창 HTML 추가
+    const alertHTML = `
+      <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-box">
+          <div class="alert-content">
+            <div class="alert-title"></div>
+            <div class="alert-message"></div>
+          </div>
+          <button class="alert-button">확인</button>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', alertHTML);
+
+    // 알림창 요소 참조
+    this.alertOverlay = document.getElementById('alertOverlay');
+    this.alertTitle = this.alertOverlay.querySelector('.alert-title');
+    this.alertMessage = this.alertOverlay.querySelector('.alert-message');
+    this.alertButton = this.alertOverlay.querySelector('.alert-button');
+
+    // 알림창 닫기 이벤트
+    this.alertButton.addEventListener('click', () => {
+      this.hideAlert();
+    });
+  }
+
+  showAlert(title, message, type = 'default') {
+    this.alertTitle.textContent = title;
+    this.alertMessage.textContent = message;
+    this.alertOverlay.className = `alert-overlay show alert-${type}`;
+  }
+
+  hideAlert() {
+    this.alertOverlay.classList.remove('show');
   }
 
   loadMembers() {
@@ -156,7 +194,12 @@ class Attendance {
       });
     });
 
-    alert("출석이 저장되었습니다.");
+    // alert 대신 커스텀 알림창 사용
+    this.showAlert(
+      '저장 완료',
+      '출석이 저장되었습니다.',
+      'success'
+    );
   }
 }
 

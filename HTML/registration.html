@@ -14,47 +14,68 @@
   <body>
     <div class="container">
       <header>
+        <a href="index.html" class="back-button">← 돌아가기</a>
         <h1>새신자 등록</h1>
       </header>
 
       <main>
         <form id="registrationForm" class="registration-form">
-          <div class="form-group">
-            <label for="name">이름</label>
-            <input type="text" id="name" name="name" required />
-          </div>
+          <div class="form-card">
+            <div class="form-header">
+              <div class="form-icon">
+                <img src="../images/onlyLogo.png" alt="등록 아이콘" />
+              </div>
+              <h2>기본 정보</h2>
+            </div>
 
-          <div class="form-group">
-            <label for="contact">연락처</label>
-            <input
-              type="tel"
-              id="contact"
-              name="contact"
-              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-              placeholder="010-0000-0000"
-              required
-            />
-          </div>
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="이름을 입력하세요"
+                required
+              />
+            </div>
 
-          <div class="form-group">
-            <label for="birthDate">생년월일</label>
-            <input type="date" id="birthDate" name="birthDate" required />
-          </div>
+            <div class="form-group">
+              <label for="contact">연락처</label>
+              <input
+                type="tel"
+                id="contact"
+                name="contact"
+                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                placeholder="010-0000-0000"
+                required
+              />
+            </div>
 
-          <div class="form-group">
-            <label for="role">직분</label>
-            <select id="role" name="role" required>
-              <option value="">선택하세요</option>
-              <option value="pastor">목사</option>
-              <option value="minister">전도사</option>
-              <option value="elder">장로</option>
-              <option value="seniorDeaconess">권사</option>
-              <option value="deaconess">집사</option>
-              <option value="member">성도</option>
-            </select>
-          </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="birthDate">생년월일</label>
+                <input type="date" id="birthDate" name="birthDate" required />
+              </div>
 
-          <button type="submit" class="btn-primary">등록하기</button>
+              <div class="form-group">
+                <label for="role">직분</label>
+                <select id="role" name="role" required>
+                  <option value="">선택하세요</option>
+                  <option value="pastor">목사</option>
+                  <option value="minister">전도사</option>
+                  <option value="elder">장로</option>
+                  <option value="seniorDeaconess">권사</option>
+                  <option value="deaconess">집사</option>
+                  <option value="member">성도</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-button">
+              <span>등록하기</span>
+              <div class="button-icon">→</div>
+            </button>
+          </div>
         </form>
       </main>
     </div>
