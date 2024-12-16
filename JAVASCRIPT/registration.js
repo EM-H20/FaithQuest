@@ -122,7 +122,13 @@ class Registration {
     try {
       utils.data.members.add(formData);
       this.showAlert("등록 완료", "새신자 등록이 완료되었습니다.", "success");
+
+      // 폼 초기화
       this.form.reset();
+
+      // 직분 선택 스타일 초기화
+      const roleSelect = document.getElementById("role");
+      roleSelect.className = ""; // 클래스 제거하여 기본 스타일로 복원
     } catch (error) {
       this.showAlert("오류 발생", "저장 중 오류가 발생했습니다.", "error");
       console.error("저장 오류:", error);
