@@ -1,10 +1,29 @@
-/* 재사용 컴포넌트 스타일 */
+/*
+* FaithQuest Components CSS
+* 
+* 목차:
+* 1. 폼 관련 스타일
+* 2. 버튼 스타일
+* 3. 테이블 스타일
+* 4. 직분 관련 스타일
+* 5. 통계 페이지 스타일
+* 6. 출석 관리 스타일
+* 7. 알림창 스타일
+* 8. 반응형 디자인
+*/
+
+/* ===========================
+   1. 폼 관련 스타일
+   =========================== */
+
+/* 기본 폼 컨테이너 */
 .registration-form {
   max-width: 600px;
   margin: 0 auto;
   padding: var(--spacing-lg);
 }
 
+/* 폼 카드 - 시각적 그룹핑을 위한 컨테이너 */
 .form-card {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -13,12 +32,14 @@
   border: 1px solid var(--color-secondary);
 }
 
+/* 폼 헤더 스타일 */
 .form-header {
   display: flex;
   align-items: center;
   margin-bottom: var(--spacing-xl);
 }
 
+/* 폼 아이콘 스타일 */
 .form-icon {
   width: 50px;
   height: 50px;
@@ -30,6 +51,7 @@
   overflow: hidden;
 }
 
+/* 폼 아이콘 이미지 스타일 */
 .form-icon img {
   width: 40px;
   height: 40px;
@@ -37,15 +59,18 @@
   filter: brightness(0.8);
 }
 
+/* 폼 헤더 타이틀 스타일 */
 .form-header h2 {
   margin: 0;
   color: var(--color-primary);
 }
 
+/* 폼 그룹 스타일 */
 .form-group {
   margin-bottom: var(--spacing-lg);
 }
 
+/* 폼 그룹 라벨 스타일 */
 .form-group label {
   display: block;
   margin-bottom: var(--spacing-sm);
@@ -53,6 +78,7 @@
   color: var(--color-text);
 }
 
+/* 폼 그룹 입력 스타일 */
 .form-group input,
 .form-group select {
   width: 100%;
@@ -63,6 +89,7 @@
   transition: all 0.2s;
 }
 
+/* 폼 그룹 입력 포커스 스타일 */
 .form-group input:focus,
 .form-group select:focus {
   border-color: var(--color-accent);
@@ -70,6 +97,7 @@
   outline: none;
 }
 
+/* 폼 행 스타일 */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -77,6 +105,7 @@
   margin-bottom: var(--spacing-lg);
 }
 
+/* 제출 버튼 스타일 */
 .submit-button {
   width: 100%;
   padding: var(--spacing-md);
@@ -94,20 +123,24 @@
   gap: var(--spacing-sm);
 }
 
+/* 제출 버튼 호버 스타일 */
 .submit-button:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
+/* 버튼 아이콘 스타일 */
 .button-icon {
   font-size: 1.2em;
   transition: transform 0.2s;
 }
 
+/* 버튼 아이콘 호버 스타일 */
 .submit-button:hover .button-icon {
   transform: translateX(4px);
 }
 
+/* 뒤로 가기 버튼 스타일 */
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -122,6 +155,7 @@
   border: 1px solid var(--color-secondary);
 }
 
+/* 뒤로 가기 버튼 호버 스타일 */
 .back-button:hover {
   color: var(--color-accent);
   background-color: var(--color-surface);
@@ -129,6 +163,7 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* 뒤로 가기 버튼 아이콘 스타일 */
 .back-button .icon {
   margin-right: var(--spacing-sm);
   font-size: 1.2em;
@@ -146,11 +181,13 @@
     gap: var(--spacing-md);
   }
 
+  /* 폼 카드 스타일 */
   .form-card {
     padding: var(--spacing-lg);
   }
 }
 
+/* 기존 스타일에 추가 */
 .btn-primary {
   background-color: var(--color-accent);
   color: white;
@@ -162,6 +199,7 @@
   width: 100%;
 }
 
+/* 제출 버튼 호버 스타일 */
 .btn-primary:hover {
   opacity: 0.9;
 }
@@ -175,6 +213,7 @@
   padding: 0 var(--spacing-lg);
 }
 
+/* 날짜 선택 스타일 */
 .date-picker {
   padding: 8px 12px;
   border: 1px solid var(--color-secondary);
@@ -1058,22 +1097,22 @@ tr:hover {
 /* 날짜 선택 영역 */
 .date-picker-wrapper {
   width: 100%;
-  max-width: 300px;  /* 적절한 너비 설정 */
+  max-width: 300px; /* 적절한 너비 설정 */
 }
 
 /* 검색 영역 */
 .search-wrapper {
   width: 100%;
-  margin-top: var(--spacing-md);  /* 상단 여백 추가 */
+  margin-top: var(--spacing-md); /* 상단 여백 추가 */
 }
 
 .search-input-wrapper {
   width: 100%;
-  max-width: 500px;  /* 적절한 너비 설정 */
+  max-width: 500px; /* 적절한 너비 설정 */
 }
 
 /* 필터 영역 */
 .filter-row {
   width: 100%;
-  max-width: 200px;  /* 적절한 너비 설정 */
+  max-width: 200px; /* 적절한 너비 설정 */
 }
