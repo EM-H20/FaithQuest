@@ -142,6 +142,10 @@
 
 /* 뒤로 가기 버튼 스타일 */
 .back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -150,8 +154,7 @@
   font-weight: 600;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-md);
-  transition: all 0.2s;
-  margin-bottom: var(--spacing-md);
+  transition: all 0.2s ease;
   background-color: var(--color-background);
   border: 1px solid var(--color-secondary);
 }
@@ -160,7 +163,7 @@
 .back-button:hover {
   color: var(--color-accent);
   background-color: var(--color-surface);
-  transform: translateX(-4px);
+  transform: translateY(-50%) translateX(-2px);
   box-shadow: var(--shadow-sm);
 }
 
@@ -168,14 +171,14 @@
 .back-button .icon {
   margin-right: var(--spacing-sm);
   font-size: 1.3em;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .back-button:hover .icon {
-  transform: translateX(-2px);
+  transform: translateX(-1px);
 }
 
-/* ���응형 디자인 */
+/* 응형 디자인 */
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -530,7 +533,7 @@ tr:hover {
   border-radius: 2px;
 }
 
-/* 메인 메뉴 ���타일 업데이트 */
+/* 메인 메뉴 타일 업데이트 */
 .main-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1086,7 +1089,7 @@ tr:hover {
   display: block;
 }
 
-/* 컨트롤 영역 레이아웃 수��� */
+/* 컨트롤 영역 레이아웃 수정 */
 .attendance-controls {
   display: flex;
   flex-direction: column;
@@ -1121,10 +1124,11 @@ tr:hover {
 /* 헤더 스타일 */
 header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   padding: 20px 0;
   width: 100%;
+  position: relative;
 }
 
 /* 로고 링크 스타일 */
