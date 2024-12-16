@@ -1,3 +1,22 @@
+/**
+ * FaithQuest 출석 관리 클래스
+ *
+ * 주요 기능:
+ * 1. 출석 체크 및 관리
+ *    - 날짜별 출석 현황 표시
+ *    - 체크박스로 출석 여부 체크
+ *    - 출석 데이터 자동 저장
+ *
+ * 2. 검색 및 필터링
+ *    - 이름/연락처 실시간 검색
+ *    - 전화번호 자동 포맷팅 (010-0000-0000)
+ *    - 직분별 필터링
+ *
+ * 3. 데이터 표시
+ *    - 직분별 구분 및 정렬
+ *    - 검색어 하이라이트
+ *    - 출석 현황 실시간 반영
+ */
 // 출석 관리 로직
 
 class Attendance {
@@ -27,6 +46,7 @@ class Attendance {
         }
       }
 
+      //출석현황 업데이트
       this.loadMembers();
     });
     this.roleFilter.addEventListener("change", () => this.loadMembers());
@@ -53,6 +73,7 @@ class Attendance {
     document.getElementById("todayDate").textContent = todayDisplay;
   }
 
+  //이벤트 리스너 초기화
   initializeEventListeners() {
     this.attendanceDate.addEventListener("change", () => this.loadMembers());
     this.saveButton.addEventListener("click", () => this.saveAttendance());
@@ -85,16 +106,19 @@ class Attendance {
     });
   }
 
+  // 알림창 표시
   showAlert(title, message, type = "default") {
     this.alertTitle.textContent = title;
     this.alertMessage.textContent = message;
     this.alertOverlay.className = `alert-overlay show alert-${type}`;
   }
 
+  // 알림창 닫기
   hideAlert() {
     this.alertOverlay.classList.remove("show");
   }
 
+  // 출석현황 로드
   loadMembers() {
     let members = utils.data.members.getAll();
     const searchTerm = this.searchInput.value.toLowerCase();
@@ -127,6 +151,7 @@ class Attendance {
     this.renderMembers(sortedMembers);
   }
 
+  // 출석현황 렌더링
   renderMembers(members) {
     this.attendanceBody.innerHTML = "";
     let currentRole = null;
@@ -156,6 +181,7 @@ class Attendance {
         return text.replace(regex, '<span class="highlight">$1</span>');
       };
 
+      // 출석현황 테이블 렌더링
       row.innerHTML = `
         <td>${highlightText(member.name, searchTerm)}</td>
         <td>
@@ -187,6 +213,7 @@ class Attendance {
     }
   }
 
+  // 출석 여부 확인
   isAttended(memberId) {
     const attendance = utils.data.attendance.getMemberHistory(memberId);
     return attendance.some(
@@ -194,11 +221,12 @@ class Attendance {
     );
   }
 
+  // 출석 저장
   saveAttendance() {
     const members = utils.data.members.getAll();
     const checkboxes = document.querySelectorAll(".attendance-checkbox");
     const currentDate = this.attendanceDate.value;
-
+    // 출석 체크박스 순회
     checkboxes.forEach((checkbox) => {
       const memberId = parseInt(checkbox.dataset.memberId);
       const member = members.find((m) => m.id === memberId);
