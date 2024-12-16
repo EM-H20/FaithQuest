@@ -175,7 +175,7 @@
   transform: translateX(-2px);
 }
 
-/* 반응형 디자인 */
+/* ���응형 디자인 */
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -530,7 +530,7 @@ tr:hover {
   border-radius: 2px;
 }
 
-/* 메인 메뉴 스타일 업데이트 */
+/* 메인 메뉴 ���타일 업데이트 */
 .main-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1086,7 +1086,7 @@ tr:hover {
   display: block;
 }
 
-/* 컨트롤 영역 레이아웃 수정 */
+/* 컨트롤 영역 레이아웃 수��� */
 .attendance-controls {
   display: flex;
   flex-direction: column;
@@ -1120,39 +1120,136 @@ tr:hover {
 
 /* 헤더 스타일 */
 header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
 }
 
 /* 로고 링크 스타일 */
 .logo-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    transition: transform 0.2s ease;
-    width: fit-content;
-    padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  width: fit-content;
+  padding: 0;
 }
 
 /* 헤더 로고 스타일 */
 .header-logo {
-    height: 100px;
-    width: auto;
-    object-fit: contain;
+  height: 100px;
+  width: auto;
+  object-fit: contain;
 }
 
 /* 호버 효과 */
 .logo-link:hover {
-    transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .header-logo {
-        height: 50px;
-    }
+  .header-logo {
+    height: 50px;
+  }
+}
+
+/* 대시보드 섹션 스타일 */
+.dashboard-section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-secondary);
+}
+
+/* 섹션 헤더 스타일 */
+.dashboard-section h2 {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+/* 최근 등록 현황 테이블 스타일 */
+.recent-registrations table {
+  width: 100%;
+  background-color: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.recent-registrations th {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-weight: 600;
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+}
+
+.recent-registrations td {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.recent-registrations tr:last-child td {
+  border-bottom: none;
+}
+
+.recent-registrations tr:hover {
+  background-color: var(--color-background);
+}
+
+/* 출석 현황 그리드 스타일 */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+/* 출석 현황 카드 스타일 */
+.summary-card {
+  background-color: white;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  transition: all 0.2s;
+  border: 1px solid var(--color-secondary);
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.summary-card h3 {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+}
+
+.summary-card p {
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .dashboard-section {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
 }
