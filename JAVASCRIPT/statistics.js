@@ -6,6 +6,11 @@ class Statistics {
     this.endDate = document.getElementById("endDate");
     this.updateButton = document.getElementById("updateStats");
 
+    // 차트 인스턴스를 저장할 변수들
+    this.roleChart = null;
+    this.registrationChart = null;
+    this.attendanceChart = null;
+
     this.initializeDates();
     this.initializeEventListeners();
     this.loadStatistics();
@@ -21,7 +26,21 @@ class Statistics {
   }
 
   initializeEventListeners() {
-    this.updateButton.addEventListener("click", () => this.loadStatistics());
+    this.updateButton.addEventListener("click", () => {
+      // 기존 차트들 제거
+      if (this.roleChart) {
+        this.roleChart.destroy();
+      }
+      if (this.registrationChart) {
+        this.registrationChart.destroy();
+      }
+      if (this.attendanceChart) {
+        this.attendanceChart.destroy();
+      }
+      
+      // 통계 다시 로드
+      this.loadStatistics();
+    });
   }
 
   loadStatistics() {
@@ -49,7 +68,7 @@ class Statistics {
     });
 
     const ctx = document.getElementById("roleChart").getContext("2d");
-    const chart = new Chart(ctx, {
+    this.roleChart = new Chart(ctx, {
       type: "pie",
       data: {
         labels: Object.keys(roleStats).map((role) => roles[role]),
@@ -88,7 +107,7 @@ class Statistics {
     });
 
     const ctx = document.getElementById("registrationChart").getContext("2d");
-    const chart = new Chart(ctx, {
+    this.registrationChart = new Chart(ctx, {
       type: "bar",
       data: {
         labels: Object.keys(monthlyStats).map((month) => {
@@ -111,28 +130,54 @@ class Statistics {
   }
 
   updateAttendanceChart(members) {
-    const attendanceRates = members.map((member) => ({
-      name: member.name,
-      rate: utils.data.attendance.getAttendanceRate(
-        member.id,
-        this.startDate.value,
-        this.endDate.value
-      ),
-    }));
+    // 기존 차트가 있다면 제거
+    if (this.attendanceChart) {
+      this.attendanceChart.destroy();
+    }
+
+    const start = this.startDate.value;
+    const end = this.endDate.value;
+
+    // 선택한 기간의 모든 날짜 생성
+    const dates = [];
+    let currentDate = new Date(start);
+    const endDate = new Date(end);
+    while (currentDate <= endDate) {
+      dates.push(new Date(currentDate).toISOString().split('T')[0]);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // 날짜별 출석률 계산
+    const attendanceData = dates.map(date => {
+      const attendedCount = members.filter(member => {
+        const attendance = member.attendance.find(a => a.date === date);
+        return attendance && attendance.attended;
+      }).length;
+      
+      return {
+        date: date,
+        rate: members.length > 0 ? (attendedCount / members.length) * 100 : 0
+      };
+    });
 
     const ctx = document.getElementById("attendanceChart").getContext("2d");
-    new Chart(ctx, {
+    this.attendanceChart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: attendanceRates.map((item) => item.name),
-        datasets: [
-          {
-            label: "출석률",
-            data: attendanceRates.map((item) => item.rate),
-            borderColor: "#2ECC71",
-            tension: 0.1,
-          },
-        ],
+        labels: attendanceData.map(item => 
+          new Date(item.date).toLocaleDateString('ko-KR', {
+            month: 'short',
+            day: 'numeric'
+          })
+        ),
+        datasets: [{
+          label: "출석률 (%)",
+          data: attendanceData.map(item => item.rate.toFixed(1)),
+          borderColor: "#2ECC71",
+          backgroundColor: "rgba(46, 204, 113, 0.1)",
+          tension: 0.1,
+          fill: true
+        }]
       },
       options: {
         responsive: true,
@@ -141,43 +186,61 @@ class Statistics {
           y: {
             beginAtZero: true,
             max: 100,
+            title: {
+              display: true,
+              text: '출석률 (%)'
+            }
           },
+          x: {
+            title: {
+              display: true,
+              text: '날짜'
+            }
+          }
         },
-      },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `출석률: ${context.parsed.y}%`;
+              }
+            }
+          }
+        }
+      }
     });
   }
 
   updateSummary(members) {
-    const start = new Date(this.startDate.value);
-    const end = new Date(this.endDate.value);
-    const thisMonth = new Date().getMonth();
-    const thisYear = new Date().getFullYear();
+    const start = this.startDate.value;
+    const end = this.endDate.value;
 
-    const newMembersCount = members.filter((member) => {
-      const regDate = new Date(member.registrationDate);
-      return (
-        regDate.getMonth() === thisMonth && regDate.getFullYear() === thisYear
+    // 선택한 기간의 전체 출석 기록
+    let totalAttendance = 0;
+    let totalDays = 0;
+
+    members.forEach(member => {
+      const periodAttendance = member.attendance.filter(record => 
+        record.date >= start && record.date <= end
       );
-    }).length;
+      
+      totalDays += periodAttendance.length;
+      totalAttendance += periodAttendance.filter(record => record.attended).length;
+    });
 
-    const avgAttendance =
-      members.reduce((sum, member) => {
-        return (
-          sum +
-          utils.data.attendance.getAttendanceRate(
-            member.id,
-            this.startDate.value,
-            this.endDate.value
-          )
-        );
-      }, 0) / members.length;
+    // 평균 출석률 계산
+    const avgAttendance = totalDays > 0 ? (totalAttendance / totalDays) * 100 : 0;
 
-    
+    // 이번달 신규 등록자 수 계산
+    const thisMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
+    const newMembersCount = members.filter(member => 
+      member.registrationDate.startsWith(thisMonth)
+    ).length;
+
+    // UI 업데이트
     document.getElementById("totalMembers").textContent = `${members.length}명`;
     document.getElementById("newMembers").textContent = `${newMembersCount}명`;
-    document.getElementById(
-      "avgAttendance"
-    ).textContent = `${avgAttendance.toFixed(1)}%`;
+    document.getElementById("avgAttendance").textContent = `${avgAttendance.toFixed(1)}%`;
   }
 }
 

@@ -1330,7 +1330,12 @@ header {
 
 /* 각 의미별 색상 표시 */
 .meaning-item.circle h3::before {
-    background: conic-gradient(#2B7DE1 90deg, #E74C3C 90deg 180deg, #F39C12 180deg 270deg, #27AE60 270deg);
+    background: conic-gradient(
+        #E74C3C 0deg 90deg,     /* 파랑색: 0° ~ 90° */
+        #27AE60 90deg 180deg,   /* 빨강색: 90° ~ 180° */
+        #F39C12 180deg 270deg,  /* 주황색: 180° ~ 270° */
+        #2B7DE1 270deg 360deg   /* 녹색: 270° ~ 360° */
+    );
     border: 1px solid var(--color-secondary);
 }
 
