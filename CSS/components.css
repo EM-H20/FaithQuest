@@ -820,7 +820,7 @@ tr:hover {
   padding: 0 var(--spacing-md);
 }
 
-/* 컨트롤 영역 여백 ���정 */
+/* 컨트롤 영역 여백 조정 */
 .attendance-controls {
   margin: var(--spacing-xl) 0;
   padding: 0 var(--spacing-lg);
@@ -1084,7 +1084,7 @@ tr:hover {
   color: var(--color-accent);
 }
 
-/* 검색어가 있을 때만 X 버튼 표시 */
+/* 검색어가 있�� 때만 X 버튼 표시 */
 .search-input:not(:placeholder-shown) + .clear-search {
   display: block;
 }
@@ -1355,43 +1355,83 @@ header {
     line-height: 1.6;
 }
 
-/* 비전 섹션 */
+/* 비전 섹션 스타일 업데이트 */
 .vision-section {
-    margin-top: var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
     text-align: center;
+    position: relative;
 }
 
 .vision-section h2 {
     color: var(--color-primary);
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: var(--spacing-lg);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    display: inline-block;
+}
+
+.vision-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+}
+
+.vision-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.vision-content::before {
+    content: """;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 120px;
+    color: rgba(0, 0, 0, 0.05);
+    font-family: serif;
 }
 
 .vision-text {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 2;
     color: var(--color-text);
-    padding: var(--spacing-xl);
-    background-color: var(--color-background);
-    border-radius: var(--radius-md);
-    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.vision-text strong {
+    display: block;
+    color: var(--color-accent);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
 }
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-    .logo-meaning-card {
+    .vision-content {
         padding: var(--spacing-lg);
-        margin: var(--spacing-sm);
-    }
-
-    .main-logo {
-        height: 150px;
-        margin: var(--spacing-lg) 0;
+        margin: 0 var(--spacing-md);
     }
 
     .vision-text {
-        font-size: 1.1rem;
-        padding: var(--spacing-lg);
+        font-size: 1.2rem;
+    }
+
+    .vision-text strong {
+        font-size: 1.4rem;
     }
 }
