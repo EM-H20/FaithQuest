@@ -1,47 +1,67 @@
-/* 기본 스타일 */
+/*
+* FaithQuest Style CSS
+* 
+* 목차:
+* 1. CSS 변수 (색상, 여백, 그림자 등)
+* 2. 기본 스타일 초기화
+* 3. 기본 레이아웃
+* 4. 타이포그래피
+* 5. 버튼 스타일
+* 6. 입력 필드 스타일
+*/
+
+/* ===========================
+   1. CSS 변수 정의
+   =========================== */
+
 :root {
-  /* 색상 팔레트 업데이트 */
-  --color-primary: #2d3748;
-  --color-secondary: #e2e8f0;
-  --color-accent: #4299e1;
-  --color-background: #f7fafc;
-  --color-surface: #ffffff;
-  --color-text: #1a202c;
-  --color-text-light: #718096;
+  /* 메인 색상 팔레트 */
+  --color-primary: #2d3748; /* 주요 텍스트, 헤더 */
+  --color-secondary: #e2e8f0; /* 보조 요소, 경계선 */
+  --color-accent: #4299e1; /* 강조, 버튼, 링크 */
+  --color-background: #f7fafc; /* 페이지 배경 */
+  --color-surface: #ffffff; /* 카드, 컨테이너 배경 */
+  --color-text: #1a202c; /* 기본 텍스트 */
+  --color-text-light: #718096; /* 보조 텍스트 */
 
-  /* 새로운 직분 색상 */
-  --color-pastor: #4299e1;
-  --color-minister: #48bb78;
-  --color-elder: #ed8936;
-  --color-seniorDeaconess: #9f7aea;
-  --color-deaconess: #ed64a6;
-  --color-member: #718096;
+  /* 직분별 색상 - 역할 구분을 위한 컬러 코드 */
+  --color-pastor: #4299e1; /* 목사 */
+  --color-minister: #48bb78; /* 전도사 */
+  --color-elder: #ed8936; /* 장로 */
+  --color-seniorDeaconess: #9f7aea; /* 권사 */
+  --color-deaconess: #ed64a6; /* 집사 */
+  --color-member: #718096; /* 성도 */
 
-  /* 그림자 */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  /* 그림자 효과 - 깊이감과 계층 구조 표현 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05); /* 약한 그림자 */
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1); /* 중간 그림자 */
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1); /* 강한 그림자 */
 
-  /* 둥근 모서리 */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* 모서리 둥글기 - 일관된 디자인을 위한 값 */
+  --radius-sm: 4px; /* 작은 요소 */
+  --radius-md: 8px; /* 중간 요소 */
+  --radius-lg: 12px; /* 큰 요소 */
 
-  /* 여백 */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  /* 여백 - 일관된 간격을 위한 값 */
+  --spacing-xs: 4px; /* 최소 여백 */
+  --spacing-sm: 8px; /* 작은 여백 */
+  --spacing-md: 16px; /* 중간 여백 */
+  --spacing-lg: 24px; /* 큰 여백 */
+  --spacing-xl: 32px; /* 최대 여백 */
 }
 
-/* 기본 스타일 초기화 및 설정 */
+/* ===========================
+   2. 기본 스타일 초기화
+   =========================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===========================
+   3. 기본 레이아웃
+   =========================== */
 body {
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -51,13 +71,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 컨테이너 - 최대 너비 제한 및 중앙 정렬 */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-lg);
 }
 
-/* 타이포그래피 */
+/* ===========================
+   4. 타이포그래피
+   =========================== */
 h1 {
   font-size: 2rem;
   font-weight: 700;
@@ -77,7 +100,9 @@ h3 {
   margin-bottom: var(--spacing-sm);
 }
 
-/* 버튼 스타일 */
+/* ===========================
+   5. 버튼 스타일
+   =========================== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -89,24 +114,29 @@ h3 {
   transition: all 0.2s;
 }
 
+/* 주요 버튼 */
 .btn-primary {
   background-color: var(--color-accent);
   color: white;
   border: none;
 }
 
+/* 보조 버튼 */
 .btn-secondary {
   background-color: var(--color-secondary);
   color: var(--color-primary);
   border: none;
 }
 
+/* 버튼 호버 효과 */
 .btn:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
-/* 입력 필드 스타일 */
+/* ===========================
+   6. 입력 필드 스타일
+   =========================== */
 input,
 select {
   width: 100%;
@@ -117,15 +147,10 @@ select {
   transition: all 0.2s;
 }
 
+/* 입력 필드 포커스 효과 */
 input:focus,
 select:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-}
-
-.button {
-  /* CSS 변수 사용 */
-  background-color: var(--color-primary);
-  padding: var(--spacing-lg);
 }
