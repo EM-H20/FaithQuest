@@ -1084,7 +1084,7 @@ tr:hover {
   color: var(--color-accent);
 }
 
-/* 검색어가 있�� 때만 X 버튼 표시 */
+/* 검색어가 있을 때만 X 버튼 표시 */
 .search-input:not(:placeholder-shown) + .clear-search {
   display: block;
 }
@@ -1151,7 +1151,7 @@ header {
 
 /* 호버 효과 */
 .logo-link:hover {
-  transform: scale(1.02);
+  transform: scale(1.1);
 }
 
 /* 반응형 디자인 */

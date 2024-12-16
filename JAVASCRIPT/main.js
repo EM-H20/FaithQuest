@@ -96,7 +96,7 @@ class Dashboard {
   }
 }
 
-// 페이지 로드 시 Dashboard 인스턴스 생성
+// 페이지 로드 시 Dashboard 인스턴스 생성�
 document.addEventListener("DOMContentLoaded", () => {
   new Dashboard();
 });
