@@ -1,0 +1,17 @@
+/* 색상, 폰트 등 변수 */
+:root {
+    /* 색상 변수 */
+    --color-primary: #2C3E50;
+    --color-secondary: #ECF0F1;
+    --color-accent: #3498DB;
+    
+    /* 직분별 색상 */
+    --color-pastor: #4A90E2;
+    --color-elder: #7ED321;
+    --color-deacon: #F5A623;
+    
+    /* 폰트 사이즈 */
+    --font-heading: 24px;
+    --font-body: 16px;
+    --font-small: 14px;
+}
