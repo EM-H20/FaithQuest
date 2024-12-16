@@ -18,15 +18,15 @@ class Attendance {
     // 이벤트 리스너 추가
     this.searchInput.addEventListener("input", (e) => {
       const value = e.target.value;
-      
+
       // 숫자만 입력된 경우 전화번호 포맷팅 적용
       if (/^\d+$/.test(value)) {
         const number = value.replace(/-/g, "");
         if (number.length === 11) {
-          e.target.value = number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+          e.target.value = number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
         }
       }
-      
+
       this.loadMembers();
     });
     this.roleFilter.addEventListener("change", () => this.loadMembers());
@@ -238,7 +238,7 @@ class Attendance {
   formatPhoneNumber(number) {
     const cleaned = number.replace(/[^0-9]/g, "");
     if (cleaned.length === 11) {
-      return cleaned.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      return cleaned.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
     }
     return number;
   }
