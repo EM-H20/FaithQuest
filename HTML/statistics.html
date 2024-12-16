@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FaithQuest - 통계</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="stylesheet" href="../CSS/components.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/style.css" />
+    <link rel="stylesheet" href="../CSS/components.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1>통계</h1>
-        </header>
-        
-        <main>
-            <div class="statistics-controls">
-                <div class="date-range">
-                    <input type="date" id="startDate" class="date-picker">
-                    <span>~</span>
-                    <input type="date" id="endDate" class="date-picker">
-                    <button id="updateStats" class="btn-secondary">조회</button>
-                </div>
+      <header>
+        <h1>통계</h1>
+      </header>
+
+      <main>
+        <div class="statistics-controls">
+          <div class="date-range">
+            <input type="date" id="startDate" class="date-picker" />
+            <span>~</span>
+            <input type="date" id="endDate" class="date-picker" />
+            <button id="updateStats" class="btn-secondary">조회</button>
+          </div>
+        </div>
+
+        <div class="statistics-grid">
+          <div class="stat-card">
+            <h3>전체 등록 현황</h3>
+            <div class="stat-content">
+              <canvas id="roleChart"></canvas>
             </div>
+          </div>
 
-            <div class="statistics-grid">
-                <div class="stat-card">
-                    <h3>전체 등록 현황</h3>
-                    <div class="stat-content">
-                        <canvas id="roleChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>월별 등록 현황</h3>
-                    <div class="stat-content">
-                        <canvas id="registrationChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>출석률</h3>
-                    <div class="stat-content">
-                        <canvas id="attendanceChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>요약</h3>
-                    <div class="stat-summary">
-                        <div class="summary-item">
-                            <span class="label">전체 등록인원</span>
-                            <span id="totalMembers" class="value">0명</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="label">이번달 신규등록</span>
-                            <span id="newMembers" class="value">0명</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="label">평균 출석률</span>
-                            <span id="avgAttendance" class="value">0%</span>
-                        </div>
-                    </div>
-                </div>
+          <div class="stat-card">
+            <h3>월별 등록 현황</h3>
+            <div class="stat-content">
+              <canvas id="registrationChart"></canvas>
             </div>
-        </main>
+          </div>
+
+          <div class="stat-card">
+            <h3>출석률</h3>
+            <div class="stat-content">
+              <canvas id="attendanceChart"></canvas>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h3>요약</h3>
+            <div class="stat-summary">
+              <div class="summary-item">
+                <span class="label">전체 등록인원</span>
+                <span id="totalMembers" class="value">0명</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">이번달 신규등록</span>
+                <span id="newMembers" class="value">0명</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">평균 출석률</span>
+                <span id="avgAttendance" class="value">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
     <script src="../JAVASCRIPT/utils.js"></script>
     <script src="../JAVASCRIPT/statistics.js"></script>
-</body>
-</html> 
+  </body>
+</html>
