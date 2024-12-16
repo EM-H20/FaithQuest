@@ -21,24 +21,44 @@ class Statistics {
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
 
+    // 시작일과 종료일 초기값 설정
     this.startDate.value = firstDay.toISOString().split("T")[0];
     this.endDate.value = today.toISOString().split("T")[0];
+
+    // 시작일의 최대값을 종료일로 제한
+    this.startDate.max = this.endDate.value;
+    // 종료일의 최소값을 시작일로 제한
+    this.endDate.min = this.startDate.value;
   }
 
   initializeEventListeners() {
-    this.updateButton.addEventListener("click", () => {
-      // 기존 차트들 제거
-      if (this.roleChart) {
-        this.roleChart.destroy();
-      }
-      if (this.registrationChart) {
-        this.registrationChart.destroy();
-      }
-      if (this.attendanceChart) {
-        this.attendanceChart.destroy();
-      }
+    // 시작일 변경 이벤트
+    this.startDate.addEventListener('change', () => {
+      // 종료일의 최소값을 시작일로 업데이트
+      this.endDate.min = this.startDate.value;
       
-      // 통계 다시 로드
+      // 종료일이 시작일보다 이전이면 종료일을 시작일로 설정
+      if (this.endDate.value < this.startDate.value) {
+        this.endDate.value = this.startDate.value;
+      }
+    });
+
+    // 종료일 변경 이벤트
+    this.endDate.addEventListener('change', () => {
+      // 시작일의 최대값을 종료일로 업데이트
+      this.startDate.max = this.endDate.value;
+      
+      // 시작일이 종료일보다 이후면 시작일을 종료일로 설정
+      if (this.startDate.value > this.endDate.value) {
+        this.startDate.value = this.endDate.value;
+      }
+    });
+
+    // 조회 버튼 클릭 이벤트
+    this.updateButton.addEventListener("click", () => {
+      if (this.roleChart) this.roleChart.destroy();
+      if (this.registrationChart) this.registrationChart.destroy();
+      if (this.attendanceChart) this.attendanceChart.destroy();
       this.loadStatistics();
     });
   }
